@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item
+       android:id="@+id/guide"
+       android:enabled="true"
+       android:icon="@drawable/guide_fill"
+       android:checked="true"
+       android:title="@string/guides"/>
+   <item
+       android:id="@+id/identify"
+       android:enabled="true"
+       android:icon="@drawable/camera_fill"
+       android:title="@string/identify"/>
+   <item
+       android:id="@+id/search"
+       android:enabled="true"
+       android:icon="@drawable/search"
+       android:title="@string/search"/>
+</menu>
