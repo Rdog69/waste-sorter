@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/guidesFragment">
+     <fragment
+        android:id="@+id/guidesFragment"
+        android:name="com.random.example.wastesorterapp.ui.GuidesFragment"
+        android:label="fragment_guides"
+        tools:layout="@layout/fragment_guides" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.random.example.wastesorterapp.ui.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.random.example.wastesorterapp.ui.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.random.example.wastesorterapp.ui.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+</navigation>
