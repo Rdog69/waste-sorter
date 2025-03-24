@@ -5,10 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.ResultFragment">
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_captured"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Result Fragment" />
+        android:scaleType="centerCrop"
+        />
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:src="@drawable/close"
+        />
 
 </FrameLayout>
