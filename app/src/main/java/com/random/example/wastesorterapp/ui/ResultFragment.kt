@@ -1,6 +1,7 @@
 package com.random.example.wastesorterapp.ui
 
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,11 +28,19 @@ class ResultFragment : Fragment() {
     ): View? {
         binding = FragmentResultBinding.inflate(inflater)
         val imagePath = arguments?.getString("imagePath")
+
         if (imagePath != null) {
-            val bitmap = BitmapFactory.decodeFile(imagePath)
-            val correctedBitmap = ImageUtils.fixImageRotation(imagePath, bitmap)
+            val bitmap = if (imagePath.startsWith("content://")) {
+                val inputStream = requireContext().contentResolver.openInputStream(Uri.parse(imagePath))
+                BitmapFactory.decodeStream(inputStream)
+            } else {
+                BitmapFactory.decodeFile(imagePath)
+            }
+
+            val correctedBitmap = ImageUtils.fixImageRotation(requireContext(), imagePath, bitmap!!)
             binding.ivCaptured.setImageBitmap(correctedBitmap)
         }
+
         binding.close.setOnClickListener{
             findNavController().navigateUp()
         }

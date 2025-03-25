@@ -43,6 +43,14 @@ class CameraFragment : Fragment() {
                 startCamera()
             }
         }
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                val action = CameraFragmentDirections.actionCameraFragmentToResultFragment(it.toString())
+                findNavController().navigate(action)
+            }
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +69,9 @@ class CameraFragment : Fragment() {
         }
         binding.btnCapture.setOnClickListener {
             takePhoto()
+        }
+        binding.btnGallery.setOnClickListener {
+            galleryLauncher.launch("image/*")
         }
 
         return binding.root

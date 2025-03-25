@@ -1,21 +1,32 @@
 package com.random.example.wastesorterapp.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
+import android.net.Uri
 import android.util.Log
 
 object ImageUtils {
 
-     fun fixImageRotation(imagePath: String, bitmap: Bitmap): Bitmap {
+    fun fixImageRotation(context: Context, imagePath: String, bitmap: Bitmap): Bitmap {
         try {
-            val exif = ExifInterface(imagePath)
+            val exif: ExifInterface = if (imagePath.startsWith("content://")) {
+                // Handle gallery images
+                val inputStream = context.contentResolver.openInputStream(Uri.parse(imagePath))
+                inputStream?.let { ExifInterface(it) } ?: return bitmap
+            } else {
+                // Handle file-based images (captured from the camera)
+                ExifInterface(imagePath)
+            }
+
             val rotation = when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
                 ExifInterface.ORIENTATION_ROTATE_90 -> 90
                 ExifInterface.ORIENTATION_ROTATE_180 -> 180
                 ExifInterface.ORIENTATION_ROTATE_270 -> 270
                 else -> 0
             }
+
             return if (rotation != 0) {
                 val matrix = Matrix()
                 matrix.postRotate(rotation.toFloat())
@@ -28,4 +39,5 @@ object ImageUtils {
             return bitmap // Return original bitmap in case of failure
         }
     }
+
 }
