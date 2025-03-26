@@ -28,7 +28,6 @@ class ResultFragment : Fragment() {
     ): View? {
         binding = FragmentResultBinding.inflate(inflater)
         val imagePath = arguments?.getString("imagePath")
-
         if (imagePath != null) {
             val bitmap = if (imagePath.startsWith("content://")) {
                 val inputStream = requireContext().contentResolver.openInputStream(Uri.parse(imagePath))
