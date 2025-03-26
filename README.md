@@ -1,1 +1,1 @@
-# waste-sorter
+# Waste Sorting App
