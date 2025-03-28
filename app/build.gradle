@@ -32,12 +32,14 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    defaultConfig {
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
     buildFeatures{
         viewBinding true
         mlModelBinding true
-    }
-    aaptOptions {
-        noCompress "tflite"
     }
 
 }
@@ -49,14 +51,16 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
-    implementation libs.tensorflow.lite.support
-    implementation libs.tensorflow.lite.metadata
-    implementation libs.tensorflow.lite.gpu
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core   
     implementation libs.glide
     implementation libs.material
+
+    // TensorFlow
+    implementation(libs.litert)
+    implementation(libs.litert.support)
+    implementation(libs.litert.metadata)
 
     // camera
     implementation libs.androidx.camera.core
@@ -74,9 +78,6 @@ dependencies {
     androidTestImplementation libs.androidx.navigation.testing
     implementation libs.kotlinx.serialization.json
 
-
-    // Tensorflow lite
-    implementation libs.tensorflow.lite
     // Room
     implementation libs.androidx.room.runtime
     implementation libs.androidx.room.ktx
