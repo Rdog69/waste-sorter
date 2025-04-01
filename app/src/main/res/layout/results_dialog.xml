@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+       />
+
+    <LinearLayout
+        android:id="@+id/llWasteType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Waste Type : "
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_black"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvWasteType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recyclable ♻️"
+            android:textColor="@color/secondary_variant"
+            android:fontFamily="@font/inter_semibold"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/llConfidence"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llWasteType"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confidence : "
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/black"
+       />
+        <TextView
+            android:id="@+id/tvConfidencePercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="92 %"
+            android:textSize="15sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/black"
+      />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llConfidence">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructions : "
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place in the blue recycling bin.\nInsure it's clean and dry."
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_semibold"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

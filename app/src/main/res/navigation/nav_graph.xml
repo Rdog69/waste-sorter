@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.random.example.wastesorterapp.ui.ResultFragment"
+        android:name="com.random.example.wastesorterapp.ui.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result">
         <argument

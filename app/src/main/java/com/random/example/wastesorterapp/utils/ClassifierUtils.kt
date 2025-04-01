@@ -2,7 +2,7 @@ package com.random.example.wastesorterapp.utils
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Matrix
+import com.random.example.wastesorterapp.model.WasteClassification
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.Interpreter
 import org.tensorflow.lite.support.common.ops.NormalizeOp
@@ -12,8 +12,6 @@ import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
 
 class ClassifierUtils(context: Context) {
     private var interpreter: Interpreter
@@ -35,7 +33,7 @@ class ClassifierUtils(context: Context) {
         }
     }
 
-    fun classify(bitmap: Bitmap): String {
+    fun classify(bitmap: Bitmap): WasteClassification {
         // Preprocess image
         val processedImage = preprocessImage(bitmap)
 
@@ -72,9 +70,19 @@ class ClassifierUtils(context: Context) {
         return imageProcessor.process(tensorImage)
     }
 
-    private fun postProcessResult(output: FloatArray): String {
-        val categories = arrayOf("Compost", "Landfill", "Recyclable") // Adjust based on your model
+    private fun postProcessResult(output: FloatArray): WasteClassification {
+        val categories = arrayOf("COMPOST", "LANDFILL", "RECYCLABLE") // Adjust based on your model
         val maxIndex = output.indices.maxByOrNull { output[it] } ?: -1
-        return "${categories[maxIndex]} (${(output[maxIndex] * 100).toInt()}%)"
+
+        // Get the waste type as an enum
+        val wasteType = WasteClassification.WasteType.valueOf(categories[maxIndex])
+
+        // Calculate confidence percentage
+        val confidencePercentage = (output[maxIndex] * 100).toInt()
+
+        // Get instructions for this waste type
+        val instructions = WasteClassification.getInstructions(wasteType)
+
+        return WasteClassification(wasteType, confidencePercentage, instructions)
     }
 }
