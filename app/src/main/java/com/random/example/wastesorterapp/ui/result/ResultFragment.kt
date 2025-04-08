@@ -48,11 +48,15 @@ class ResultFragment : Fragment() {
 
             // Correct image rotation
             val correctedBitmap = ImageUtils.fixImageRotation(requireContext(), imagePath, bitmap!!)
-
+            val croppedImage = ImageUtils.getCroppedImage(correctedBitmap)
+            ImageUtils.saveProcessedImage(
+                croppedImage,
+                context = requireContext()
+            )
             // Show original image
             binding.ivCaptured.setImageBitmap(correctedBitmap)
-            // Use ViewModel to classify the image
-            viewModel.classifyImage(correctedBitmap)
+            // Use ViewModel to classify the cropped image
+            viewModel.classifyImage(croppedImage)
         }
 
         binding.close.setOnClickListener {

@@ -47,19 +47,6 @@ class ClassifierUtils(context: Context) {
         // Get prediction results
         return postProcessResult(outputBuffer.floatArray)
     }
-
-    fun getCroppedImage(originalBitmap: Bitmap): Bitmap {
-        val imageProcessor = ImageProcessor.Builder()
-            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
-            .build()
-
-        val tensorImage = TensorImage(DataType.FLOAT32)
-        tensorImage.load(originalBitmap)
-
-        // Create a new bitmap with the resized dimensions
-        return Bitmap.createScaledBitmap(tensorImage.bitmap, 224, 224, true)
-    }
-
     private fun preprocessImage(bitmap: Bitmap): TensorImage {
         val imageProcessor = ImageProcessor.Builder()
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR)) // Adjust size based on your model
