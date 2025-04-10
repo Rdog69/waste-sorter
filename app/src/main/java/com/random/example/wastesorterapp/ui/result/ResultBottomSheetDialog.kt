@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.random.example.wastesorterapp.R
 
 
 class ResultBottomSheetDialog : BottomSheetDialogFragment() {
@@ -19,15 +20,15 @@ class ResultBottomSheetDialog : BottomSheetDialogFragment() {
         binding = ResultsDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    override fun getTheme(): Int {
+        return R.style.NoBackgroundDialogTheme
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Retrieve classification result from arguments
         val wasteType = arguments?.getString("wasteType") ?: "Unknown"
         val confidence = arguments?.getInt("confidence") ?: 0
         val instructions = arguments?.getString("instructions") ?: "No specific instructions available."
-
         // Update UI elements
         binding.tvWasteType.text = wasteType
         binding.tvConfidencePercentage.text = "$confidence%"
