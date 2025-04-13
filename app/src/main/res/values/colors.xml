@@ -15,4 +15,7 @@
     <color name="secondary_variant">#00b834</color>
     <color name="background">#121212</color>
 
+    <color name="recyclable">#00C108</color>
+    <color name="compost">#2196F3</color>
+    <color name="landfill">#F44336</color>
 </resources>

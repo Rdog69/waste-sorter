@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.random.example.wastesorterapp.R
+import com.random.example.wastesorterapp.model.WasteClassification.WasteType
 
 
 class ResultBottomSheetDialog : BottomSheetDialogFragment() {
@@ -32,6 +34,20 @@ class ResultBottomSheetDialog : BottomSheetDialogFragment() {
         // Update UI elements
         binding.tvWasteType.text = wasteType
         binding.tvConfidencePercentage.text = "$confidence%"
+        when (wasteType) {
+            "Recyclable" -> {
+                binding.tvWasteType.setTextColor(ContextCompat.getColor(requireContext(), R.color.recyclable))
+                binding.tvWasteType.text = wasteType + " ♻️"
+            }
+            "Compost" -> {
+                binding.tvWasteType.setTextColor(ContextCompat.getColor(requireContext(), R.color.compost))
+                binding.tvWasteType.text = wasteType + "️ \uD83C\uDF31"
+            }
+            "Landfill"-> {
+                binding.tvWasteType.setTextColor(ContextCompat.getColor(requireContext(), R.color.landfill))
+                binding.tvWasteType.text = wasteType + " \uD83D\uDDD1\uFE0F️"
+            }
+        }
         binding.tvInstructions.text = instructions
     }
 
