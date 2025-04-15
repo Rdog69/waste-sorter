@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.random.example.wastesorterapp.R
+import com.random.example.wastesorterapp.ui.guide.GuideDetailFragment
 
 
 class ResultBottomSheetDialog : BottomSheetDialogFragment() {
@@ -48,6 +50,12 @@ class ResultBottomSheetDialog : BottomSheetDialogFragment() {
             }
         }
         binding.tvInstructions.text = instructions
+        binding.buttonDetailedGuide.setOnClickListener{
+            val bundle = Bundle().apply {
+                putString(GuideDetailFragment.ARG_CATEGORY_TYPE, wasteType.uppercase())
+            }
+            findNavController().navigate(R.id.guideDetailFragment, bundle)
+        }
     }
 
     companion object {

@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.random.example.wastesorterapp.R
 import com.random.example.wastesorterapp.databinding.ActivityMainBinding
@@ -13,6 +14,8 @@ import com.random.example.wastesorterapp.databinding.ActivityMainBinding
 private lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -24,9 +27,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val navHostFragment =
-        supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
 
         binding.bottomNavigation.setOnItemSelectedListener { item->
             when(item.itemId) {

@@ -6,9 +6,17 @@
     app:startDestination="@id/guidesFragment">
      <fragment
         android:id="@+id/guidesFragment"
-        android:name="com.random.example.wastesorterapp.ui.GuidesFragment"
+        android:name="com.random.example.wastesorterapp.ui.guide.GuideFragment"
         android:label="fragment_guides"
-        tools:layout="@layout/fragment_guides" />
+        tools:layout="@layout/fragment_guides" >
+         <action
+             android:id="@+id/action_guidesFragment_to_guideDetailFragment"
+             app:destination="@id/guideDetailFragment"
+             app:enterAnim="@anim/nav_default_enter_anim"
+             app:exitAnim="@anim/nav_default_exit_anim"
+             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+     </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.random.example.wastesorterapp.ui.CameraFragment"
@@ -34,4 +42,14 @@
         android:name="com.random.example.wastesorterapp.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/guideDetailFragment"
+        android:name="com.random.example.wastesorterapp.ui.guide.GuideDetailFragment"
+        android:label="fragment_guide_detail"
+        tools:layout="@layout/fragment_guide_detail" >
+        <argument
+            android:name="category_type"
+            app:argType="string"
+            android:defaultValue="recyclable" />
+    </fragment>
 </navigation>

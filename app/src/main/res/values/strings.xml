@@ -3,6 +3,21 @@
     <string name="identify">Identify</string>
     <string name="guides">Guides</string>
     <string name="search">Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="landfill_example">"\n                    • Dirty plastic wrap\n                    • Used tissues and paper towels\n                    • Styrofoam\n                    • Broken dishes and glassware\n                    • Plastic bags and wrappers\n                "</string>
+    <string name="landfill_warning">"\n                    • Check if items can be recycled first\n                    • Hazardous waste needs special disposal\n                    • Electronic waste should be taken to e-waste centers\n                    • Consider reuse or donation for usable items\n                "</string>
+    <string name="landfill_disposal">Put in the black/gray bin (garbage).</string>
+    <string name="compost_disposal">Put in the green bin (compost/organics).</string>
+    <string name="compost_example">"\n                    • Food scraps\n                    • Coffee grounds and filters\n                    • Tea bags\n                    • Plant trimmings\n                    • Soiled paper towels\n                "</string>
+    <string name="compost_warning">"\n                    • No plastic or biodegradable plastics\n                    • No meat or dairy in some regions\n                    • No compostable packaging unless specified\n                    • No pet waste\n                "</string>
+    <string name="recyclable_examples">"\n                    • Plastic bottles and containers\n                    • Glass bottles and jars\n                    • Paper and cardboard\n                    • Metal cans\n                    • Clean aluminum foil\n                "</string>
+    <string name="recyclable_warning">"\n                    • Items must be clean and dry\n                    • No food residue\n                    • No plastic bags or film\n                    • No electronic waste\n                "</string>
+    <string name="recyclable_disposal">Put in the blue bin (recycling).</string>
+    <string name="recyclable">Recyclable</string>
+    <string name="compost">Compost</string>
+    <string name="landfill">Landfill</string>
+    <string name="disposal">Disposal</string>
+    <string name="examples">Examples</string>
+    <string name="warning">Warning</string>
 </resources>
