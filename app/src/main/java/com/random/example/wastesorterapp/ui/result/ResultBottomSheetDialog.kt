@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.random.example.wastesorterapp.R
-import com.random.example.wastesorterapp.model.WasteClassification.WasteType
 
 
 class ResultBottomSheetDialog : BottomSheetDialogFragment() {

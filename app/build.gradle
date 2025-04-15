@@ -82,6 +82,7 @@ dependencies {
     implementation libs.androidx.room.runtime
     implementation libs.androidx.room.ktx
     ksp libs.androidx.room.compiler
+    implementation libs.opencsv
 
     // MVVM & Lifecycle
     implementation libs.androidx.lifecycle.viewmodel.ktx

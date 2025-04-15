@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.random.example.wastesorterapp.R
@@ -42,6 +43,10 @@ class WasteDetailBottomSheetDialog : BottomSheetDialogFragment() {
         }
     }
 
+    override fun getTheme(): Int {
+        return R.style.NoBackgroundDialogTheme
+    }
+
     private fun updateUI(wasteItem: WasteItem) {
         binding.tvItemName.text = wasteItem.name
         binding.tvItemDescription.text = wasteItem.description
@@ -54,15 +59,27 @@ class WasteDetailBottomSheetDialog : BottomSheetDialogFragment() {
         when (wasteItem.wasteType) {
             WasteType.RECYCLABLE -> {
                 binding.ivCategoryIcon.setImageResource(R.drawable.recyclable)
-                binding.tvItemCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.recyclable))
+                val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                if (background != null) {
+                    DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.recyclable))
+                    binding.tvItemCategory.background = background
+                }
             }
             WasteType.COMPOST -> {
                 binding.ivCategoryIcon.setImageResource(R.drawable.leaf)
-                binding.tvItemCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.compost))
+                val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                if (background != null) {
+                    DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.compost))
+                    binding.tvItemCategory.background = background
+                }
             }
             WasteType.LANDFILL -> {
                 binding.ivCategoryIcon.setImageResource(R.drawable.trash)
-                binding.tvItemCategory.setBackgroundColor(ContextCompat.getColor(context, R.color.landfill))
+                val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                if (background != null) {
+                    DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.landfill))
+                    binding.tvItemCategory.background = background
+                }
             }
         }
     }

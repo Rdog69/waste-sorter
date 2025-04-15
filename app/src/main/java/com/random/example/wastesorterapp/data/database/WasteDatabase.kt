@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.opencsv.CSVReader
 import com.random.example.wastesorterapp.data.dao.WasteItemDao
 import com.random.example.wastesorterapp.model.WasteItem
 import com.random.example.wastesorterapp.data.converters.WasteTypeConverter
@@ -13,6 +14,7 @@ import com.random.example.wastesorterapp.model.WasteClassification.WasteType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.InputStreamReader
 
 @Database(entities = [WasteItem::class], version = 1, exportSchema = false)
 @TypeConverters(WasteTypeConverter::class)
@@ -31,7 +33,7 @@ abstract class WasteDatabase : RoomDatabase() {
                     WasteDatabase::class.java,
                     "waste_database"
                 )
-                    .addCallback(WasteDatabaseCallback(scope))
+                    .addCallback(WasteDatabaseCallback(scope,context))
                     .build()
 
                 INSTANCE = instance
@@ -40,96 +42,49 @@ abstract class WasteDatabase : RoomDatabase() {
         }
 
         private class WasteDatabaseCallback(
-            private val scope: CoroutineScope
+            private val scope: CoroutineScope,private val context: Context
         ) : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
 
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.wasteItemDao())
+                        populateDatabase(database.wasteItemDao(), context = context )
                     }
                 }
             }
         }
 
-        suspend fun populateDatabase(wasteItemDao: WasteItemDao) {
-            // Check if database is already populated
+        suspend fun populateDatabase(wasteItemDao: WasteItemDao, context: Context) {
             if (wasteItemDao.getCount() > 0) return
 
-            // Add sample waste items
-            val sampleItems = listOf(
-                // Recyclable items
-                WasteItem(
-                    name = "Plastic Bottle",
-                    wasteType = WasteType.RECYCLABLE,
-                    description = "Plastic bottles made of PET or HDPE",
-                    instructions = "Rinse bottles, remove caps, and flatten if possible. Place in blue recycling bin.",
-                    keywords = "bottle, water bottle, soda bottle, pet, hdpe, plastic"
-                ),
-                WasteItem(
-                    name = "Newspaper",
-                    wasteType = WasteType.RECYCLABLE,
-                    description = "Newspapers, magazines, and printed paper",
-                    instructions = "Keep dry and clean. Place in blue recycling bin or paper recycling.",
-                    keywords = "paper, news, magazine, print, reading"
-                ),
-                WasteItem(
-                    name = "Aluminum Can",
-                    wasteType = WasteType.RECYCLABLE,
-                    description = "Soda cans, beer cans, and other metal containers",
-                    instructions = "Rinse cans and place in blue recycling bin.",
-                    keywords = "can, soda, beer, aluminum, metal, tin"
-                ),
+            val inputStream = context.assets.open("waste_items.csv")
+            val reader = CSVReader(InputStreamReader(inputStream))
+            val wasteItems = mutableListOf<WasteItem>()
 
-                // Compost items
-                WasteItem(
-                    name = "Fruit Scraps",
-                    wasteType = WasteType.COMPOST,
-                    description = "Fruit peels, cores, and unused portions",
-                    instructions = "Place in green compost bin. Remove any stickers.",
-                    keywords = "fruit, peel, apple, banana, orange, food waste"
-                ),
-                WasteItem(
-                    name = "Coffee Grounds",
-                    wasteType = WasteType.COMPOST,
-                    description = "Used coffee grounds and filters",
-                    instructions = "Place used coffee grounds and paper filters in green compost bin.",
-                    keywords = "coffee, grounds, filter, breakfast, organic"
-                ),
-                WasteItem(
-                    name = "Yard Trimmings",
-                    wasteType = WasteType.COMPOST,
-                    description = "Grass clippings, leaves, and small branches",
-                    instructions = "Place in green compost bin or yard waste collection.",
-                    keywords = "grass, leaves, yard, garden, plant, trim"
-                ),
+            reader.readNext() // Skip header row
 
-                // Landfill items
-                WasteItem(
-                    name = "Styrofoam",
-                    wasteType = WasteType.LANDFILL,
-                    description = "Expanded polystyrene foam packaging",
-                    instructions = "Cannot be recycled in most areas. Place in black trash bin.",
-                    keywords = "foam, packaging, takeout, container, eps, polystyrene"
-                ),
-                WasteItem(
-                    name = "Used Tissues",
-                    wasteType = WasteType.LANDFILL,
-                    description = "Used facial tissues, napkins, and paper towels",
-                    instructions = "Cannot be recycled or composted if soiled. Place in black trash bin.",
-                    keywords = "tissue, napkin, paper towel, kleenex, bathroom"
-                ),
-                WasteItem(
-                    name = "Chip Bags",
-                    wasteType = WasteType.LANDFILL,
-                    description = "Metallized plastic film packaging for chips and snacks",
-                    instructions = "Multi-layer packaging cannot be recycled. Place in black trash bin.",
-                    keywords = "chips, snack, packaging, foil, plastic, food"
-                )
-            )
+            reader.forEach { row ->
+                if (row.size >= 5) {
+                    try {
+                        val wasteItem = WasteItem(
+                            name = row[0].trim(),
+                            wasteType = WasteType.valueOf(row[1].trim().uppercase()),
+                            description = row[2].trim(),
+                            instructions = row[3].trim(),
+                            keywords = row[4].trim(),
+                            imageResourceName = row.getOrNull(5)?.trim() ?: ""
+                        )
+                        wasteItems.add(wasteItem)
+                    } catch (e: Exception) {
+                        // Optional: log or ignore malformed lines
+                        e.printStackTrace()
+                    }
+                }
+            }
 
-            wasteItemDao.insertAll(sampleItems)
+            reader.close()
+            wasteItemDao.insertAll(wasteItems)
         }
     }
 }

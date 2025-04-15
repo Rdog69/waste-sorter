@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -58,15 +59,25 @@ class WasteItemAdapter(private val onItemClick: (WasteItem) -> Unit) :
             when (wasteItem.wasteType) {
                 WasteType.RECYCLABLE -> {
                     iconImageView.setImageResource(R.drawable.recyclable) // Add this drawable
-                    typeTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.recyclable)) // Define color in colors.xml
-                }
+                    val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                    if (background != null) {
+                        DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.recyclable))
+                        typeTextView.background = background
+                    }                }
                 WasteType.COMPOST -> {
                     iconImageView.setImageResource(R.drawable.leaf) // Add this drawable
-                    typeTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.compost)) // Define color in colors.xml
-                }
+                    val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                    if (background != null) {
+                        DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.compost))
+                        typeTextView.background = background
+                    }                }
                 WasteType.LANDFILL -> {
                     iconImageView.setImageResource(R.drawable.trash) // Add this drawable
-                    typeTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.landfill)) // Define color in colors.xml
+                    val background = ContextCompat.getDrawable(context, R.drawable.bg_tv)?.mutate()
+                    if (background != null) {
+                        DrawableCompat.setTint(background, ContextCompat.getColor(context, R.color.landfill))
+                        typeTextView.background = background
+                    }
                 }
             }
         }
