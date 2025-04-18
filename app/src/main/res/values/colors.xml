@@ -18,4 +18,7 @@
     <color name="recyclable">#00C108</color>
     <color name="compost">#2196F3</color>
     <color name="landfill">#F44336</color>
+    <color name="recyclable_dark">#288031</color>
+    <color name="compost_dark">#082382</color>
+    <color name="landfill_dark">#802828</color>
 </resources>

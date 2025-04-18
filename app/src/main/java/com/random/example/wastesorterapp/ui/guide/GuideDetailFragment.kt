@@ -61,7 +61,7 @@ class GuideDetailFragment : Fragment() {
             WasteClassification.WasteType.RECYCLABLE.toString() -> {
                 binding.categoryTitle.text = getString(R.string.recyclable)
                 binding.categoryIcon.setImageResource(R.drawable.recyclable)
-                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.recyclable))
+                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.recyclable_dark))
 
                 binding.disposalContent.text = getString(R.string.recyclable_disposal)
 
@@ -72,7 +72,7 @@ class GuideDetailFragment : Fragment() {
             WasteClassification.WasteType.COMPOST.toString() -> {
                 binding.categoryTitle.text = getString(R.string.compost)
                 binding.categoryIcon.setImageResource(R.drawable.leaf)
-                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.compost))
+                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.compost_dark))
 
                 binding.disposalContent.text = getString(R.string.compost_disposal)
 
@@ -83,7 +83,7 @@ class GuideDetailFragment : Fragment() {
             WasteClassification.WasteType.LANDFILL.toString() -> {
                 binding.categoryTitle.text = getString(R.string.landfill)
                 binding.categoryIcon.setImageResource(R.drawable.trash)
-                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.landfill))
+                binding.headerLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.landfill_dark))
 
                 binding.disposalContent.text = getString(R.string.landfill_disposal)
 
@@ -97,7 +97,7 @@ class GuideDetailFragment : Fragment() {
     private fun setupExpandableSection(card: CardView, arrow: ImageView, content: TextView, initiallyExpanded: Boolean) {
         // Set initial state
         content.visibility = if (initiallyExpanded) View.VISIBLE else View.GONE
-        arrow.rotation = if (initiallyExpanded) 270f else 180f
+        arrow.rotation = if (initiallyExpanded) 180F else 0f
         val animationDuration = 200L
 
         // Measure the full height of the content when visible
@@ -127,7 +127,7 @@ class GuideDetailFragment : Fragment() {
                     animator.start()
 
                     // Rotate arrow animation
-                    arrow.animate().rotation(180f).setDuration(animationDuration).start()
+                    arrow.animate().rotation(0f).setDuration(animationDuration).start()
                 } else {
                     // Make visible but with height 0 for animation
                     content.visibility = View.VISIBLE
@@ -148,7 +148,7 @@ class GuideDetailFragment : Fragment() {
                     animator.start()
 
                     // Rotate arrow animation
-                    arrow.animate().rotation(270f).setDuration(animationDuration).start()
+                    arrow.animate().rotation(180f).setDuration(animationDuration).start()
                 }
             }
         }
