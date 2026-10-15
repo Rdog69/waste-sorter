@@ -4,7 +4,11 @@ An Android app that tells you which bin a piece of waste belongs in. Point the c
 
 Everything runs offline on the phone: no account, no server and no images leave the device.
 
-<!-- TODO: add screenshots or a demo GIF here, e.g. ![Identify screen](docs/identify.png) -->
+## Screenshots
+
+| Identify | Result | Guides | Guide detail | Search |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="docs/screenshots/camera.png" width="160" alt="Camera screen framing a drink can"> | <img src="docs/screenshots/result.png" width="160" alt="Result sheet: Recyclable, 92% confidence"> | <img src="docs/screenshots/guides.png" width="160" alt="Guides screen with Recyclable, Compost and Landfill"> | <img src="docs/screenshots/guide-detail.png" width="160" alt="Recyclable guide with disposal and examples"> | <img src="docs/screenshots/search.png" width="160" alt="Search screen showing Apple Core details"> |
 
 ## Features
 
